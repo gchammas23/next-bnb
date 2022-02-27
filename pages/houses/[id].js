@@ -1,8 +1,9 @@
 import houses from '../../houses';
 import Head from 'next/head';
+import Layout from '../../components/Layout';
 
 export default function HouseDetails(props) {
-    return (
+    const content = (
         <div>
             <Head>
                 <title>{props.house.title}</title>
@@ -13,7 +14,8 @@ export default function HouseDetails(props) {
             </p>
             <p>{props.house.title}</p>
         </div>
-    )
+    );
+    return <Layout content={content}/>
 }
 
 export async function getServerSideProps({ query }) {
