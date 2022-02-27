@@ -1,6 +1,7 @@
 import houses from '../../houses';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
+import DateRangePicker from '../../components/DateRangePicker';
 
 export default function HouseDetails(props) {
     const content = (
@@ -15,7 +16,10 @@ export default function HouseDetails(props) {
                 </p>
                 <p>{props.house.title}</p>
             </article>
-            <aside></aside>
+            <aside>
+                <h2>Pick a date</h2>
+                <DateRangePicker />
+            </aside>
             <style jsx>{`
                 .container {
                     display: grid;
