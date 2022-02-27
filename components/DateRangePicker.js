@@ -1,16 +1,54 @@
 import DayPickerInput from "react-day-picker/DayPickerInput";
+import { DateUtils } from "react-day-picker";
+import dateFnsFormat from "date-fns/format";
+import dateFnsParse from "date-fns/parse";
 import "react-day-picker/lib/style.css";
 
+const parseDate = (str, format, locale) => {
+    const parsed = dateFnsParse(str, format, new Date(), { locale });
+    return DateUtils.isDate(parsed) ? parsed : null;
+}
+
+const formatDate = (date, format, locale) => {
+    dateFnsFormat(date, format, { locale });
+}
+
 export default function DateRangePicker() {
+    const dateFormat = "dd MMM yyyy";
+
     return (
         <div className='date-range-picker-container'>
             <div>
                 <label>From:</label>
-                <DayPickerInput />
+                <DayPickerInput
+                    formatDate={formatDate}
+                    format={dateFormat}
+                    parseDate={parseDate}
+                    placeholder={`${dateFnsFormat(new Date(), dateFormat)}`}
+                    dayPickerProps={{
+                        modifiers: {
+                            disabled: {
+                                before: new Date()
+                            }
+                        }
+                    }} 
+                />
             </div>
             <div>
                 <label>To:</label>
-                <DayPickerInput />
+                <DayPickerInput
+                    formatDate={formatDate}
+                    format={dateFormat}
+                    parseDate={parseDate}
+                    placeholder={`${dateFnsFormat(new Date(), dateFormat)}`}
+                    dayPickerProps={{
+                        modifiers: {
+                            disabled: {
+                                before: new Date()
+                            }
+                        }
+                    }}  
+                />
             </div>
             <style jsx>
                 {`
