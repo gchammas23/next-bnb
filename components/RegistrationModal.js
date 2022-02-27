@@ -3,7 +3,10 @@ export default function RegistrationModal(props) {
         <>
             <h2>Sign up</h2>
             <div>
-                <form>
+                <form onSubmit={(event) => {
+                    event.preventDefault();
+                    alert('Sign up!');
+                }}>
                     <input id='email' type='email' placeholder='Email address'/>
                     <input id='password' type='password' placeholder='Password'/>
                     <input id='confirmPassword' type='password' placeholder='Confirm your password'/>

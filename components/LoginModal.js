@@ -3,7 +3,10 @@ export default function LoginModal(props) {
         <>
             <h2>Log in</h2>
             <div>
-                <form>
+                <form onSubmit={(event) => {
+                    event.preventDefault();
+                    alert('Log in!');
+                }}>
                     <input id='email' type='email' placeholder='Email address'/>
                     <input id='password' type='password' placeholder='Password'/>
                     <button>Log in</button>
