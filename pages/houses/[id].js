@@ -1,8 +1,16 @@
 import houses from '../../houses';
+import Head from 'next/head';
 
 export default function HouseDetails(props) {
     return (
         <div>
+            <Head>
+                <title>{props.house.title}</title>
+            </Head>
+            <img src={props.house.picture} width="100%" alt="House picture" />
+            <p>
+                {props.house.type} - {props.house.town}
+            </p>
             <p>{props.house.title}</p>
         </div>
     )
