@@ -1,6 +1,15 @@
-import Link from "next/dist/client/link";
+import Link from 'next/link';
+import { useStoreActions } from 'easy-peasy';
 
 export default function Header(props) {
+    const setShowLoginModal = useStoreActions((actions) => {
+        actions.modals.setShowLoginModal;
+    });
+
+    const setShowRegistrationModal = useStoreActions((actions) => {
+        actions.modals.setShowRegistrationModal;
+    });
+
     return (
         <div className="nav-container">
             <Link href="/">
@@ -11,12 +20,12 @@ export default function Header(props) {
             <nav>
                 <ul>
                     <li>
-                        <Link href="/register">
+                        <Link href="#" onClick={() => setShowRegistrationModal()}>
                             <a>Sign up</a>
                         </Link>
                     </li>
                     <li>
-                        <Link href="/login">
+                        <Link href="#" onClick={() => setShowLoginModal()}>
                             <a>Log in</a>
                         </Link>
                     </li>
