@@ -6,8 +6,8 @@ import Modal from './Modal';
 import RegistrationModal from './RegistrationModal';
 
 export default function Layout(props) {
-    const [showModal, setShowModal] = useState(true);
-    const [showLoginModal, setShowLoginModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [showLoginModal, setShowLoginModal] = useState(false);
     const [showRegistrationModal, setShowRegistrationModal] = useState(false);
 
     return (
