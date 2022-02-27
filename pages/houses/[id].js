@@ -1,21 +1,40 @@
 import houses from '../../houses';
 import Head from 'next/head';
 import Layout from '../../components/Layout';
+import DateRangePicker from '../../components/DateRangePicker';
 
 export default function HouseDetails(props) {
     const content = (
-        <div>
+        <div className='container'>
             <Head>
                 <title>{props.house.title}</title>
             </Head>
-            <img src={props.house.picture} width="100%" alt="House picture" />
-            <p>
-                {props.house.type} - {props.house.town}
-            </p>
-            <p>{props.house.title}</p>
+            <article>
+                <img src={props.house.picture} width='100%' alt='House picture' />
+                <p>
+                    {props.house.type} - {props.house.town}
+                </p>
+                <p>{props.house.title}</p>
+            </article>
+            <aside>
+                <h2>Pick a date</h2>
+                <DateRangePicker />
+            </aside>
+            <style jsx>{`
+                .container {
+                    display: grid;
+                    grid-template-columns: 60% 40%;
+                    grid-gap: 30px;
+                }
+
+                aside {
+                    border: 1px solid #ccc;
+                    padding: 20px;
+                }
+            `}</style>
         </div>
     );
-    return <Layout content={content}/>
+    return <Layout content={content} />
 }
 
 export async function getServerSideProps({ query }) {
