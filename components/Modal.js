@@ -1,7 +1,7 @@
 export default function Modal(props) {
     return (
         <div className='nav-container'>
-            <div className='modal-background' onClick={() => console.log('close')}></div>
+            <div className='modal-background' onClick={() => props.close()}></div>
             <div className='modal'>{props.children}</div>
 
             <style jsx global>
