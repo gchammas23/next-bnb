@@ -14,7 +14,7 @@ export default function RegistrationModal(props) {
 
                     <p>
                         Already have an account?{' '}
-                        <a href='javascript:;' onClick={() => props.showLogin()}>Log in</a>
+                        <a href='#' onClick={() => props.showLogin()}>Log in</a>
                     </p>
                 </form>
             </div>

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
 import Header from "./Header";
@@ -19,22 +18,24 @@ export default function Layout(props) {
             <Header />
             <main>{props.content}</main>
             {
-                showModal && <Modal close={() => setHideModal}>
-                    { showLoginModal && (
-                        <LoginModal
-                            showSignUp={() => {
-                                setShowRegistrationModal();
-                            }}
-                        />
-                    ) }
-                    { showRegistrationModal && (
-                        <RegistrationModal
-                            showLogin={() => {
-                                setShowLoginModal();
-                            }}
-                        />
+                showModal && (
+                    <Modal close={() => setHideModal()}>
+                        {showLoginModal && (
+                            <LoginModal
+                                showSignUp={() => {
+                                    setShowRegistrationModal()
+                                }}
+                            />
+                        )}
+                        {showRegistrationModal && (
+                            <RegistrationModal
+                                showLogin={() => {
+                                    setShowLoginModal()
+                                }}
+                            />
                     ) }
                 </Modal>
+                )
             }
             <style jsx>{`
                 main {

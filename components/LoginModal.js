@@ -13,7 +13,7 @@ export default function LoginModal(props) {
 
                     <p>
                         Don't have an account?{' '}
-                        <a href='javascript:;' onClick={() => props.showSignUp() }>Sign up</a>
+                        <a href='#' onClick={() => props.showSignUp() }>Sign up</a>
                     </p>
                 </form>
             </div>
