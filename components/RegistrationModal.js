@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function RegistrationModal(props) {
     const [email, setEmail] = useState('');
@@ -20,14 +21,20 @@ export default function RegistrationModal(props) {
         setConfirmPassword(e.target.value);
     }
 
+    const handleRegistration = async () => {
+        const response = await axios.post('/api/auth/register', {
+            email,
+            password,
+            confirmPassword
+        });
+        console.log(response);
+    }
+
     return (
         <>
             <h2>Sign up</h2>
             <div>
-                <form onSubmit={(event) => {
-                    event.preventDefault();
-                    alert(`Email: ${email} Password: ${password} Confirm Password: ${confirmPassword}`);
-                }}>
+                <form onSubmit={handleRegistration}>
                     <input id='email' type='email' placeholder='Email address' onChange={handleEmailChange}/>
                     <input id='password' type='password' placeholder='Password' onChange={handlePasswordChange}/>
                     <input id='confirmPassword' type='password' placeholder='Confirm your password' onChange={handleConfirmPasswordChange}/>
