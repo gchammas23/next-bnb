@@ -5,6 +5,7 @@
   "main": "houses.js",
   "dependencies": {
     "axios": "^0.26.0",
+    "bcrypt": "^5.0.1",
     "date-fns": "^2.27.0",
     "dotenv": "^16.0.0",
     "easy-peasy": "^5.0.4",

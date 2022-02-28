@@ -1,4 +1,5 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
+import bcrypt from 'bcrypt';
 import config from './config/config';
 
 const sequelize = new Sequelize(config.postgres.url, {
@@ -27,6 +28,19 @@ User.init({
 {
     sequelize,
     modelName: 'user',
-    timestamps: false
+    timestamps: false,
+
+    // We add a hook here to hash the password before it is saved to the database
+    hooks: {
+        beforeCreate: async (user) => {
+            const saltRounds = 10;
+            const salt = await bcrypt.genSalt(saltRounds);
+            user.password = await bcrypt.hash(user.password, salt);
+        }
+    }
 }
-)
+);
+
+User.prototype.isPasswordValid = async (password) => {
+    return bcrypt.compare(password, this.password);
+}
