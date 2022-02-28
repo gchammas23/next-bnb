@@ -18,10 +18,10 @@ User.init({
         type: DataTypes.STRING,
         allowNull: false,
     },
-    sessionToken: {
+    session_token: {
         type: DataTypes.STRING,
     },
-    sessionExpiry: {
+    session_expiry: {
         type: DataTypes.DATEONLY
     }
 },
