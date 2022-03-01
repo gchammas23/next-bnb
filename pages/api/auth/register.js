@@ -1,9 +1,6 @@
-import randomstring from "randomstring";
 import { User } from "../../../models";
+import { generateString } from "../../../utils/globalService";
 
-const generateString = (length) => {
-    return randomstring.generate(length);
-};
 
 const register = async (req, res) => {
     if (req.method !== 'POST') {
