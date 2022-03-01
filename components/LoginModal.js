@@ -1,14 +1,46 @@
+import { useState } from 'react';
+import axios from 'axios';
+import { useStoreActions } from 'easy-peasy';
+
 export default function LoginModal(props) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const setLoggedIn = useStoreActions((actions) => actions.auth.setLoggedIn);
+    const setHideModal = useStoreActions((actions) => actions.modals.setHideModal);
+
+    const handleEmailChange = (e) => {
+        e.preventDefault();
+        setEmail(e.target.value);
+    }
+
+    const handlePasswordChange = (e) => {
+        e.preventDefault();
+        setPassword(e.target.value);
+    }
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const response = await axios.post('/api/auth/login', {
+            email,
+            password
+        });
+
+        if (response.data.error) {
+            alert(response.data.message);
+        } else {
+            setLoggedIn(true);
+            setHideModal(true);
+        }
+    }
+
     return (
         <>
             <h2>Log in</h2>
             <div>
-                <form onSubmit={(event) => {
-                    event.preventDefault();
-                    alert('Log in!');
-                }}>
-                    <input id='email' type='email' placeholder='Email address'/>
-                    <input id='password' type='password' placeholder='Password'/>
+                <form onSubmit={handleLogin}>
+                    <input id='email' type='email' placeholder='Email address' onChange={handleEmailChange}/>
+                    <input id='password' type='password' placeholder='Password' onChange={handlePasswordChange}/>
                     <button>Log in</button>
 
                     <p>

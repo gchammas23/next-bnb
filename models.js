@@ -7,7 +7,7 @@ const sequelize = new Sequelize(config.postgres.url, {
     logging: false //Set this to true to see the SQL queries when debugging
 });
 
-export class User extends Model {};
+class User extends Model {};
 
 User.init({
     email: {
@@ -41,6 +41,8 @@ User.init({
 }
 );
 
-User.prototype.isPasswordValid = async (password) => {
-    return bcrypt.compare(password, this.password);
+User.prototype.isPasswordValid = async function (password) {
+    return await bcrypt.compare(password, this.password)
 }
+
+module.exports = { User, sequelize }

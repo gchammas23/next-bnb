@@ -1,3 +1,7 @@
+import Cookies from 'cookies';
+import { useStoreActions } from 'easy-peasy';
+import { useEffect } from 'react';
+
 import houses from '../houses';
 import House from '../components/House';
 import Layout from '../components/Layout';
@@ -23,6 +27,25 @@ const content = (
     </div>
 );
 
-export default function Home() {
+export default function Home({ session }) {
+  const setLoggedIn = useStoreActions((actions) => actions.auth.setLoggedIn);
+
+  useEffect(() => {
+    if (session) {
+      setLoggedIn(true);
+    }
+  }, []);
+  
   return <Layout content={content}/>
+}
+
+export async function getServerSideProps({ req, res, next }) {
+  const cookies = new Cookies(req, res);
+  const session = cookies.get('next-bnb-session');
+
+  return {
+    props: {
+      session: session || null
+    }
+  }
 }

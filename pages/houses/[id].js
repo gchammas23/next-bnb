@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useStoreActions } from 'easy-peasy';
-import houses from '../../houses';
 import Head from 'next/head';
+import Cookies from 'cookies';
+import houses from '../../houses';
 import Layout from '../../components/Layout';
 import DateRangePicker from '../../components/DateRangePicker';
 
@@ -20,8 +21,16 @@ const calcNumberOfNightsBetweenDates = (startDate, endDate) => {
 
 export default function HouseDetails(props) {
     const setShowLoginModal = useStoreActions((actions) => actions.modals.setShowLoginModal);
+    const setLoggedIn = useStoreActions((actions) => actions.auth.setLoggedIn);
+
     const [dateChosen, setDateChosen] = useState(false);
     const [numbOfNightsBetweenDates, setNumbOfNightsBetweenDates] = useState(0);
+
+    useEffect(() => {
+        if (props.session) {
+            setLoggedIn(true);
+        }
+    }, []);
 
     const content = (
         <div className='container'>
@@ -84,12 +93,15 @@ export default function HouseDetails(props) {
     return <Layout content={content} />
 }
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ req, res, query }) {
     const { id } = query;
+    const cookies = new Cookies(req, res);
+    const session = cookies.get('next-bnb-session');
 
     return {
         props: {
-            house: houses.filter(house => house.id === parseInt(id))[0]
+            house: houses.filter(house => house.id === parseInt(id))[0],
+            session: session || null
         }
     }
 }
