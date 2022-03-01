@@ -1,3 +1,4 @@
+import Cookies from "cookies";
 import { User } from "../../../models";
 import { generateString } from "../../../utils/globalService";
 
@@ -25,6 +26,14 @@ const register = async (req, res) => {
         session_expiry.setDate(session_expiry.getDate() + 1);
 
         user = await User.create({ email, password, session_token, session_expiry });
+
+        //Create cookie for session
+        const cookies = new Cookies(req, res);
+        cookies.set('next-bnb-session', session_token, {
+            httpOnly: true, //This cookie can only be accessed by the server
+        })
+
+        //Send response back to front
         res.status(201).send({ error: false, message: 'Account successfully created'});
     }
 };
