@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useStoreActions } from 'easy-peasy';
 
 export default function RegistrationModal(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const setLoggedIn = useStoreActions((actions) => actions.auth.setLoggedIn);
+    const setHideModal = useStoreActions((actions) => actions.modals.setHideModal);
 
     const handleEmailChange = (e) => {
         e.preventDefault();
@@ -21,13 +25,21 @@ export default function RegistrationModal(props) {
         setConfirmPassword(e.target.value);
     }
 
-    const handleRegistration = async () => {
+    const handleRegistration = async (e) => {
+        e.preventDefault();
         const response = await axios.post('/api/auth/register', {
             email,
             password,
             confirmPassword
         });
-        console.log(response);
+        alert(response.data.message);
+
+        if (response.data.error) {
+            alert(response.data.message);
+        } else {
+            setLoggedIn(true);
+            setHideModal(true);
+        }
     }
 
     return (
