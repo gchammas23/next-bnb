@@ -26,9 +26,7 @@ export default function LoginModal(props) {
             password
         });
 
-        console.log(response);
-
-        if (response.data.status === 'error') {
+        if (response.data.error) {
             alert(response.data.message);
         } else {
             setLoggedIn(true);

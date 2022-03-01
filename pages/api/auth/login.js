@@ -1,24 +1,25 @@
-import { User, sequelize } from '../../../models';
+import { User } from "../../../models";
 import { generateString } from '../../../utils/globalService';
 import Cookies from 'cookies';
 
 const login = async (req, res) => {
+    console.log('USER ', User);
     if (req.method !== 'POST') {
-        res.status(405).end();
+        return res.status(405).end();
     }
 
     const { email, password } = req.body;
 
     //Find the user first
-    let user = User.findOne({ where: { email } });
+    let user = await User.findOne({ where: { email } });
 
     if (!user) {
-        res.status(401).send({ error: true, message: 'Could not find account' });
+        return res.status(401).send({ error: true, message: 'Could not find account' });
     } else {
         const passwordCheck = await user.isPasswordValid(password);
 
         if(!passwordCheck) {
-            res.status(401).send({ error: true, message: 'Invalid password' });
+            return res.status(401).send({ error: true, message: 'Invalid password' });
         } else {
             let sessionToken;
             const sessionExpiration = new Date();
@@ -43,7 +44,7 @@ const login = async (req, res) => {
                 httpOnly: true // This cookie is only accessible by the server
             });
 
-            res.status(200).send({ error: false, message: 'Successfully logged in' });
+            return res.status(200).send({ error: false, message: 'Successfully logged in' });
         }
     }
 }
