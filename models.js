@@ -7,6 +7,7 @@ const sequelize = new Sequelize(config.postgres.url, {
     logging: false //Set this to true to see the SQL queries when debugging
 });
 
+// USER MODEL
 class User extends Model {};
 
 User.init({
@@ -45,4 +46,40 @@ User.prototype.isPasswordValid = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
 
-module.exports = { User, sequelize }
+// HOUSE MODEL
+class House extends Model {};
+
+House.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    type: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    town: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    price: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    owner: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+},
+{
+    sequelize,
+    modelName: 'house',
+    timestamps: false
+})
+
+module.exports = { User, House, sequelize }
