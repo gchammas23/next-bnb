@@ -3,7 +3,6 @@ import { generateString } from '../../../utils/globalService';
 import Cookies from 'cookies';
 
 const login = async (req, res) => {
-    console.log('USER ', User);
     if (req.method !== 'POST') {
         return res.status(405).end();
     }
