@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useStoreActions } from 'easy-peasy';
 
 export default function LoginModal(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const setLoggedIn = useStoreActions((actions) => actions.auth.setLoggedIn);
+    const setHideModal = useStoreActions((actions) => actions.modals.setHideModal);
 
     const handleEmailChange = (e) => {
         e.preventDefault();
@@ -26,6 +30,9 @@ export default function LoginModal(props) {
 
         if (response.data.status === 'error') {
             alert(response.data.message);
+        } else {
+            setLoggedIn(true);
+            setHideModal(true);
         }
     }
 
