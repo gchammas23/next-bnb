@@ -80,6 +80,9 @@ House.init({
     sequelize,
     modelName: 'house',
     timestamps: false
-})
+});
+
+House.sync({ alter: true });
+User.sync({ alter: true });
 
 module.exports = { User, House, sequelize }
