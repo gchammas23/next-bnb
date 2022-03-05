@@ -21,7 +21,7 @@ export default function LoginModal(props) {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await axiosInstance.post('/api/auth/login', {
+        const response = await axiosInstance.post('api/auth/login', {
             email,
             password
         });

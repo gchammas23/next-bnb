@@ -19,12 +19,9 @@ const canBook = async (houseId, startDate, endDate) => {
 }
 
 const checkBookingDates = async (req, res) => {
-    if (req.method !== 'POST') {
-        return res.status(405).end();
-    }
 
     let message = "free";
-    if (await canBook(req.query.id, req.body.startDate, req.body.endDate)) {
+    if (await canBook(req.query.id, req.query.startDate, req.query.endDate)) {
         message = "busy";
     }
 

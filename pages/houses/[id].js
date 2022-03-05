@@ -23,7 +23,7 @@ const calcNumberOfNightsBetweenDates = (startDate, endDate) => {
 
 const getBookedDates = async (id) => {
     try {
-        const response = await axiosInstance.get(`/api/houses/bookedDates`, {
+        const response = await axiosInstance.get(`api/houses/bookedDates`, {
             params: {
                 id
             }
@@ -36,6 +36,23 @@ const getBookedDates = async (id) => {
         return response.data.dates;
     } catch(e) {
         console.log('ERROR WHILE GETTING BOOKED DATES ', e);
+    }
+}
+
+const canBookHouse = async (houseId, startDate, endDate) => {
+    try {
+        const response = await axiosInstance.get('api/houses/check', {
+            params: {
+                id: houseId,
+                startDate,
+                endDate
+            }
+        });
+
+        if (response.data.message === 'busy') return false;
+        return true;
+    } catch (e) {
+        console.log('ERROR WHEN CHECKING IF USER CAN BOOK HOUSE ', e);
     }
 }
 
@@ -52,8 +69,11 @@ export default function HouseDetails(props) {
 
     const handleBooking = async (e) => {
         e.preventDefault();
+        if (!(await canBookHouse(props.house.id, startDate, endDate))) {
+            return alert('The chosen dates are unavailable');
+        }
         try {
-            const response = await axiosInstance.post('/api/houses/reserve', {
+            const response = await axiosInstance.post('api/houses/reserve', {
                 houseId: props.house.id,
                 startDate,
                 endDate
