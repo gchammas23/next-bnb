@@ -47,7 +47,7 @@ export async function getServerSideProps({ req, res, next }) {
   return {
     props: {
       session: session || null,
-      houses: houses.rows.map((house) => house.dataValues);
+      houses: houses.rows.map((house) => house.dataValues)
     }
   }
 }
