@@ -32,6 +32,24 @@ export default function HouseDetails(props) {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
 
+    const handleBooking = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/api/reserve', {
+                houseId: props.house.id,
+                startDate,
+                endDate
+            });
+
+            if (response.data.error) {
+                return alert(response.data.message);
+            }
+            console.log(response.data);
+        } catch(e) {
+            console.log('BOOKING Error ', e);
+        }
+    }
+
     useEffect(() => {
         if (props.session) {
             setLoggedIn(true);
@@ -71,7 +89,7 @@ export default function HouseDetails(props) {
                             <p>${(numbOfNightsBetweenDates * props.house.price).toFixed(2)}</p>
                             {
                                 isLoggedIn ? (
-                                    <button className='reserve' onClick={() => { }}>Reserve</button>
+                                    <button className='reserve' onClick={handleBooking}>Reserve</button>
                                 ) : (
                                     <button className='reserve' onClick={() => setShowLoginModal()}>Log in to reserve</button>
                                 )
