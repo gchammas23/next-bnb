@@ -23,7 +23,7 @@ const calcNumberOfNightsBetweenDates = (startDate, endDate) => {
 
 const getBookedDates = async (id) => {
     try {
-        const response = await axiosInstance.get(`api/houses/bookedDates`, {
+        const response = await axiosInstance.get(`houses/bookedDates`, {
             params: {
                 id
             }
@@ -41,7 +41,7 @@ const getBookedDates = async (id) => {
 
 const canBookHouse = async (houseId, startDate, endDate) => {
     try {
-        const response = await axiosInstance.get('api/houses/check', {
+        const response = await axiosInstance.get('houses/check', {
             params: {
                 id: houseId,
                 startDate,
@@ -73,7 +73,7 @@ export default function HouseDetails(props) {
             return alert('The chosen dates are unavailable');
         }
         try {
-            const response = await axiosInstance.post('api/houses/reserve', {
+            const response = await axiosInstance.post('houses/reserve', {
                 houseId: props.house.id,
                 startDate,
                 endDate

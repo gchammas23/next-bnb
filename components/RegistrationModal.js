@@ -27,7 +27,7 @@ export default function RegistrationModal(props) {
 
     const handleRegistration = async (e) => {
         e.preventDefault();
-        const response = await axiosInstance.post('api/auth/register', {
+        const response = await axiosInstance.post('auth/register', {
             email,
             password,
             confirmPassword
