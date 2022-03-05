@@ -18,8 +18,6 @@ const formatDate = (date, format, locale) =>
 const format = "dd MMM yyyy"
 
 const today = new Date()
-const tomorrow = new Date(today)
-tomorrow.setDate(tomorrow.getDate() + 1)
 
 const numberOfNightsBetweenDates = (startDate, endDate) => {
     const start = new Date(startDate) //clone
