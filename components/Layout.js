@@ -1,4 +1,5 @@
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import Head from 'next/head';
 
 import Header from "./Header";
 import LoginModal from './LoginModal';
@@ -15,6 +16,9 @@ export default function Layout(props) {
     const setShowRegistrationModal = useStoreActions((actions) => actions.modals.setShowRegistrationModal);
     return (
         <div>
+            <Head>
+                <script src='https://js.stripe.com/v3/'></script>
+            </Head>
             <Header />
             <main>{props.content}</main>
             {
