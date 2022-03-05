@@ -31,7 +31,6 @@ export default function HouseDetails(props) {
     const [numbOfNightsBetweenDates, setNumbOfNightsBetweenDates] = useState(0);
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
-    const [showPrice, setShowPrice] = useState(false);
 
     useEffect(() => {
         if (props.session) {
@@ -57,9 +56,6 @@ export default function HouseDetails(props) {
                     datesChanged={(startDate, endDate) => {
                         // Compute the number of nights between the dates when they change
                         setNumbOfNightsBetweenDates(calcNumberOfNightsBetweenDates(startDate, endDate));
-                        if (!moment(startDate).isSame(moment(endDate))) {
-                            setShowPrice(true);
-                        }
 
                         setDateChosen(true);
                         setStartDate(startDate);
@@ -71,18 +67,10 @@ export default function HouseDetails(props) {
                         <div>
                             <h2>Price per night</h2>
                             <p>${props.house.price}</p>
+                            <h2>Total price for booking</h2>
+                            <p>${(numbOfNightsBetweenDates * props.house.price).toFixed(2)}</p>
                             {
-                                showPrice ? (
-                                    <>
-                                        <h2>Total price for booking</h2>
-                                        <p>${(numbOfNightsBetweenDates * props.house.price).toFixed(2)}</p>
-                                    </>
-                                ) : (
-                                    <p></p>
-                                )
-                            }
-                            {
-                                isLoggedIn && showPrice ? (
+                                isLoggedIn ? (
                                     <button className='reserve' onClick={() => { }}>Reserve</button>
                                 ) : (
                                     <button className='reserve' onClick={() => setShowLoginModal()}>Log in to reserve</button>
