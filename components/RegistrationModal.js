@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 import { useStoreActions } from 'easy-peasy';
 
 export default function RegistrationModal(props) {
@@ -27,7 +27,7 @@ export default function RegistrationModal(props) {
 
     const handleRegistration = async (e) => {
         e.preventDefault();
-        const response = await axios.post('/api/auth/register', {
+        const response = await axiosInstance.post('/api/auth/register', {
             email,
             password,
             confirmPassword

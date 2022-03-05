@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import Head from 'next/head';
 import Cookies from 'cookies';
-import axios from 'axios';
-import moment from 'moment';
+import axiosInstance from '../../axiosInstance';
 
 import { House as HouseModel } from '../../models';
 import Layout from '../../components/Layout';
@@ -24,7 +23,7 @@ const calcNumberOfNightsBetweenDates = (startDate, endDate) => {
 
 const getBookedDates = async (id) => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/houses/bookedDates`, {
+        const response = await axiosInstance.get(`/api/houses/bookedDates`, {
             params: {
                 id
             }
@@ -54,7 +53,7 @@ export default function HouseDetails(props) {
     const handleBooking = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/houses/reserve', {
+            const response = await axiosInstance.post('/api/houses/reserve', {
                 houseId: props.house.id,
                 startDate,
                 endDate
