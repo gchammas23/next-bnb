@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 import { useStoreActions } from 'easy-peasy';
 
 export default function LoginModal(props) {
@@ -21,7 +21,7 @@ export default function LoginModal(props) {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await axios.post('/api/auth/login', {
+        const response = await axiosInstance.post('api/auth/login', {
             email,
             password
         });

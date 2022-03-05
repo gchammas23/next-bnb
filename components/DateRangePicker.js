@@ -17,9 +17,6 @@ const formatDate = (date, format, locale) =>
 
 const format = "dd MMM yyyy"
 
-const today = new Date()
-const tomorrow = new Date(today)
-tomorrow.setDate(tomorrow.getDate() + 1)
 
 const numberOfNightsBetweenDates = (startDate, endDate) => {
     const start = new Date(startDate) //clone
@@ -34,9 +31,13 @@ const numberOfNightsBetweenDates = (startDate, endDate) => {
     return dayCount
 }
 
-export default function DateRangePicker({ datesChanged }) {
-    const [startDate, setStartDate] = useState(today)
-    const [endDate, setEndDate] = useState(tomorrow)
+export default function DateRangePicker(props) {
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+
+    const bookedDates = props.bookedDates.map((date) => {
+        return new Date(date);
+    })
 
     return (
         <div className='date-range-picker-container'>
@@ -50,20 +51,23 @@ export default function DateRangePicker({ datesChanged }) {
                     placeholder={`${dateFnsFormat(new Date(), format)}`}
                     dayPickerProps={{
                         modifiers: {
-                            disabled: {
-                                before: new Date()
-                            }
+                            disabled: [
+                                ...bookedDates,
+                                {
+                                    before: new Date()
+                                }
+                            ]
                         }
                     }}
                     onDayChange={day => {
                         setStartDate(day)
-                        const newEndDate = new Date(day);
                         if (numberOfNightsBetweenDates(day, endDate) < 1) {
+                            const newEndDate = new Date(day);
                             newEndDate.setDate(newEndDate.getDate() + 1);
                             setEndDate(newEndDate);
+                            return props.datesChanged(day, newEndDate);
                         }
-
-                        datesChanged(day, newEndDate);
+                        props.datesChanged(day, endDate);
                     }}
                 />
             </div>
@@ -78,6 +82,7 @@ export default function DateRangePicker({ datesChanged }) {
                     dayPickerProps={{
                         modifiers: {
                             disabled: [
+                                ...bookedDates,
                                 startDate,
                                 {
                                     before: startDate
@@ -87,7 +92,7 @@ export default function DateRangePicker({ datesChanged }) {
                     }}
                     onDayChange={day => {
                         setEndDate(day);
-                        datesChanged(startDate, day);
+                        props.datesChanged(startDate, day);
                     }}
                 />
             </div>
