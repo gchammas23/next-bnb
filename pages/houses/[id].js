@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import Head from 'next/head';
 import Cookies from 'cookies';
+import axios from 'axios';
 
 import {House as HouseModel } from '../../models';
 import Layout from '../../components/Layout';
@@ -27,6 +28,8 @@ export default function HouseDetails(props) {
 
     const [dateChosen, setDateChosen] = useState(false);
     const [numbOfNightsBetweenDates, setNumbOfNightsBetweenDates] = useState(0);
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
 
     useEffect(() => {
         if (props.session) {
@@ -53,6 +56,8 @@ export default function HouseDetails(props) {
                         // Compute the number of nights between the dates when they change
                         setNumbOfNightsBetweenDates(calcNumberOfNightsBetweenDates(startDate, endDate));
                         setDateChosen(true);
+                        setStartDate(startDate);
+                        setEndDate(endDate);
                     }}
                 />
                 {
