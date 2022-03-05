@@ -111,6 +111,14 @@ Booking.init({
     endDate: {
         type: DataTypes.DATEONLY,
         allowNull: false
+    },
+    paid: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    },
+    sessionId: {
+        type: DataTypes.STRING
     }
 }, 
 {
