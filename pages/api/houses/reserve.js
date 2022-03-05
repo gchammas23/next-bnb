@@ -1,4 +1,4 @@
-import { User, Booking } from '../../models';
+import { User, Booking } from '../../../models';
 
 const reserveHouse = async (req, res) => {
     if (req.method !== 'POST') {

@@ -35,7 +35,7 @@ export default function HouseDetails(props) {
     const handleBooking = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/reserve', {
+            const response = await axios.post('/api/houses/reserve', {
                 houseId: props.house.id,
                 startDate,
                 endDate
