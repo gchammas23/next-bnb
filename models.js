@@ -86,7 +86,41 @@ House.init({
     timestamps: false
 });
 
+
+// BOOKING MODEL
+class Booking extends Model {};
+
+Booking.init({
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    houseId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    startDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    },
+    endDate: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    }
+}, 
+{
+    sequelize,
+    modelName: 'booking',
+    timestamps: true
+});
+
 House.sync({ alter: true });
 User.sync({ alter: true });
+Booking.sync({ alter: true });
 
-module.exports = { User, House, sequelize }
+module.exports = { User, House, Booking, sequelize }
