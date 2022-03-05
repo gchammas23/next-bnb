@@ -17,7 +17,6 @@ const formatDate = (date, format, locale) =>
 
 const format = "dd MMM yyyy"
 
-const today = new Date()
 
 const numberOfNightsBetweenDates = (startDate, endDate) => {
     const start = new Date(startDate) //clone
@@ -33,7 +32,7 @@ const numberOfNightsBetweenDates = (startDate, endDate) => {
 }
 
 export default function DateRangePicker({ datesChanged }) {
-    const [startDate, setStartDate] = useState(today)
+    const [startDate, setStartDate] = useState(null)
     const [endDate, setEndDate] = useState(null)
 
     return (
