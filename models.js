@@ -59,6 +59,10 @@ House.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    picture: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     town: {
         type: DataTypes.STRING,
         allowNull: false

@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Cookies from 'cookies';
 
 import {House as HouseModel } from '../../models';
-import houses from '../../houses';
 import Layout from '../../components/Layout';
 import DateRangePicker from '../../components/DateRangePicker';
 
