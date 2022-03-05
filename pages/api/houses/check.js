@@ -23,9 +23,9 @@ const checkBookingDates = async (req, res) => {
         return res.status(405).end();
     }
 
-    let message = "You can book this house!";
+    let message = "free";
     if (await canBook(req.query.id, req.body.startDate, req.body.endDate)) {
-        message = "The house is booked in the specified dates";
+        message = "busy";
     }
 
     return res.status(200).send({ error: false, message });
