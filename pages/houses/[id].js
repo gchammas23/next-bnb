@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { useStoreActions } from 'easy-peasy';
 import Head from 'next/head';
 import Cookies from 'cookies';
-import houses from '../../houses';
+
+import {House as HouseModel } from '../../models';
 import Layout from '../../components/Layout';
 import DateRangePicker from '../../components/DateRangePicker';
 
@@ -97,10 +98,11 @@ export async function getServerSideProps({ req, res, query }) {
     const { id } = query;
     const cookies = new Cookies(req, res);
     const session = cookies.get('next-bnb-session');
+    const house = await HouseModel.findByPk(id);
 
     return {
         props: {
-            house: houses.filter(house => house.id === parseInt(id))[0],
+            house: house.dataValues,
             session: session || null
         }
     }

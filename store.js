@@ -1,6 +1,6 @@
 import { createStore, action } from 'easy-peasy';
 
-export default createStore({
+module.exports = createStore({
     auth: {
         loggedIn: false,
         setLoggedIn: action((state) => {
